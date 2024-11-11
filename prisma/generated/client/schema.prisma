@@ -1,0 +1,21 @@
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "./generated/client"
+}
+
+model Appointment {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  name        String
+  email       String
+  contactNo   String
+  bookingDate DateTime
+  bookingTime String
+  message     String? // Optional field
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
