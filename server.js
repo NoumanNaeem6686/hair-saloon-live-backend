@@ -15,8 +15,8 @@ app.use(express.json());
 const allowedOrigins = [
   "http://localhost:5500",
   // "http://localhost:3001",
-  "https://medico-tech-admin-frontend-three.vercel.app/",
-  "https://medico-tech-use-frontend.vercel.app/",
+  "https://hair-saloon-user-frontend.vercel.app/",
+  // "https://medico-tech-use-frontend.vercel.app/",
 ];
 
 app.use(
