@@ -4,6 +4,7 @@ const cors = require("cors");
 const cookieParser = require("cookie-parser");
 
 const userRoutes = require("./src/routes/userRoutes");
+const adminRoutes = require("./src/routes/adminRoutes");
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY); // Initialize Stripe with your secret key
 
 const app = express();
@@ -51,6 +52,7 @@ app.post("/api/create-payment-intent", async (req, res) => {
 
 // Add your user routes
 app.use("/api/user", userRoutes);
+app.use("/api/admin", adminRoutes);
 
 const port = 8000;
 const server = app.listen(port, () => {

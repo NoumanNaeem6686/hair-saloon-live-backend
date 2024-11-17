@@ -9,46 +9,41 @@ const bookAppointment = async (req, res) => {
     const { name, email, contactNo, bookingDate, bookingTime, message } =
       req.body;
 
-    // Convert bookingDate to ISO-8601 DateTime string
-    const parsedBookingDate = new Date(bookingDate).toISOString();
+    // Convert bookingDate and bookingTime to a DateTime object
+    const bookingDateTime = new Date(`${bookingDate}T${bookingTime}`);
 
-    // Create appointment in the database
+    // Check if the requested booking falls within any unavailable slot
+    const overlappingUnavailability = await prisma.adminUnavailability.findMany(
+      {
+        where: {
+          OR: [
+            {
+              startDate: { lte: bookingDateTime },
+              endDate: { gte: bookingDateTime },
+            },
+          ],
+        },
+      }
+    );
+
+    if (overlappingUnavailability.length > 0) {
+      return res
+        .status(400)
+        .json({ message: "The selected slot is unavailable for booking." });
+    }
+
+    // Create appointment if the slot is available
+    const parsedBookingDate = new Date(bookingDate).toISOString();
     const appointment = await prisma.appointment.create({
       data: {
         name,
         email,
         contactNo,
-        bookingDate: parsedBookingDate, // Use the converted date
+        bookingDate: parsedBookingDate,
         bookingTime,
         message,
       },
     });
-
-    // Set up Nodemailer transport (using Gmail as an example)
-    // let transporter = nodemailer.createTransport({
-    //   service: "gmail",
-    //   auth: {
-    //     user: process.env.EMAIL_USER, // Your Gmail address (stored in .env)
-    //     pass: process.env.EMAIL_PASS, // Your Gmail password or app password (stored in .env)
-    //   },
-    // });
-
-    // // Email content
-    // let mailOptions = {
-    //   from: process.env.EMAIL_USER,
-    //   to: email, // Sending email to the user who booked the appointment
-    //   subject: "Appointment Confirmation",
-    //   text: `Dear ${name},\n\nYour appointment has been booked successfully!\n\nDetails:\n- Date: ${bookingDate}\n- Time: ${bookingTime}\n\nThank you for choosing us!\n\nBest regards,\nYour Company Name`,
-    // };
-
-    // // Send the email
-    // transporter.sendMail(mailOptions, (error, info) => {
-    //   if (error) {
-    //     console.error("Error sending email:", error);
-    //   } else {
-    //     console.log("Email sent:", info.response);
-    //   }
-    // });
 
     res
       .status(200)
@@ -57,6 +52,7 @@ const bookAppointment = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
 const getAllAppointments = async (req, res) => {
   try {
     const appointments = await prisma.appointment.findMany({});
@@ -68,7 +64,46 @@ const getAllAppointments = async (req, res) => {
   }
 };
 
+const addUnavailability = async (req, res) => {
+  try {
+    const { startDate, endDate } = req.body;
+
+    // Validate that start date is before end date
+    if (new Date(startDate) >= new Date(endDate)) {
+      return res.status(400).json({ message: "Invalid date range" });
+    }
+
+    // Create an unavailability record in the database
+    const unavailability = await prisma.adminUnavailability.create({
+      data: {
+        startDate: new Date(startDate),
+        endDate: new Date(endDate),
+      },
+    });
+
+    res
+      .status(200)
+      .json({ message: "Unavailability added successfully", unavailability });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+const getAllUnavailability = async (req, res) => {
+  try {
+    const unavailabilitySlots = await prisma.adminUnavailability.findMany({});
+    res.status(200).json({
+      message: "Unavailability slots retrieved successfully",
+      unavailabilitySlots,
+    });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
 module.exports = {
   bookAppointment,
   getAllAppointments,
+  getAllUnavailability,
+  addUnavailability,
 };
