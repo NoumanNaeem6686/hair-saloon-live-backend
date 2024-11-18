@@ -24,6 +24,8 @@ model AdminUnavailability {
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
   startDate DateTime
   endDate   DateTime
+  startTime String // Or use DateTime if you want exact timestamps
+  endTime   String // Or use DateTime if you want exact timestamps
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }

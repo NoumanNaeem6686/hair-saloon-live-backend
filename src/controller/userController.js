@@ -66,18 +66,21 @@ const getAllAppointments = async (req, res) => {
 
 const addUnavailability = async (req, res) => {
   try {
-    const { startDate, endDate } = req.body;
+    const { startDate, startTime, endDate, endTime } = req.body;
 
-    // Validate that start date is before end date
-    if (new Date(startDate) >= new Date(endDate)) {
-      return res.status(400).json({ message: "Invalid date range" });
-    }
+    // Combine date and time to create ISO strings
+    const startDateTime = new Date(
+      `${startDate}T${startTime}:00`
+    ).toISOString();
+    const endDateTime = new Date(`${endDate}T${endTime}:00`).toISOString();
 
     // Create an unavailability record in the database
     const unavailability = await prisma.adminUnavailability.create({
       data: {
-        startDate: new Date(startDate),
-        endDate: new Date(endDate),
+        startDate: startDateTime,
+        endDate: endDateTime,
+        startTime: startTime, // Keeping time as string if your schema allows
+        endTime: endTime, // Keeping time as string if your schema allows
       },
     });
 

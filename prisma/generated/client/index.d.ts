@@ -1957,6 +1957,8 @@ export namespace Prisma {
     id: string | null
     startDate: Date | null
     endDate: Date | null
+    startTime: string | null
+    endTime: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -1965,6 +1967,8 @@ export namespace Prisma {
     id: string | null
     startDate: Date | null
     endDate: Date | null
+    startTime: string | null
+    endTime: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -1973,6 +1977,8 @@ export namespace Prisma {
     id: number
     startDate: number
     endDate: number
+    startTime: number
+    endTime: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -1983,6 +1989,8 @@ export namespace Prisma {
     id?: true
     startDate?: true
     endDate?: true
+    startTime?: true
+    endTime?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -1991,6 +1999,8 @@ export namespace Prisma {
     id?: true
     startDate?: true
     endDate?: true
+    startTime?: true
+    endTime?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -1999,6 +2009,8 @@ export namespace Prisma {
     id?: true
     startDate?: true
     endDate?: true
+    startTime?: true
+    endTime?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -2080,6 +2092,8 @@ export namespace Prisma {
     id: string
     startDate: Date
     endDate: Date
+    startTime: string
+    endTime: string
     createdAt: Date
     updatedAt: Date
     _count: AdminUnavailabilityCountAggregateOutputType | null
@@ -2105,6 +2119,8 @@ export namespace Prisma {
     id?: boolean
     startDate?: boolean
     endDate?: boolean
+    startTime?: boolean
+    endTime?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }, ExtArgs["result"]["adminUnavailability"]>
@@ -2114,6 +2130,8 @@ export namespace Prisma {
     id?: boolean
     startDate?: boolean
     endDate?: boolean
+    startTime?: boolean
+    endTime?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
@@ -2126,6 +2144,8 @@ export namespace Prisma {
       id: string
       startDate: Date
       endDate: Date
+      startTime: string
+      endTime: string
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["adminUnavailability"]>
@@ -2523,6 +2543,8 @@ export namespace Prisma {
     readonly id: FieldRef<"AdminUnavailability", 'String'>
     readonly startDate: FieldRef<"AdminUnavailability", 'DateTime'>
     readonly endDate: FieldRef<"AdminUnavailability", 'DateTime'>
+    readonly startTime: FieldRef<"AdminUnavailability", 'String'>
+    readonly endTime: FieldRef<"AdminUnavailability", 'String'>
     readonly createdAt: FieldRef<"AdminUnavailability", 'DateTime'>
     readonly updatedAt: FieldRef<"AdminUnavailability", 'DateTime'>
   }
@@ -3752,6 +3774,8 @@ export namespace Prisma {
     id: 'id',
     startDate: 'startDate',
     endDate: 'endDate',
+    startTime: 'startTime',
+    endTime: 'endTime',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -3917,6 +3941,8 @@ export namespace Prisma {
     id?: StringFilter<"AdminUnavailability"> | string
     startDate?: DateTimeFilter<"AdminUnavailability"> | Date | string
     endDate?: DateTimeFilter<"AdminUnavailability"> | Date | string
+    startTime?: StringFilter<"AdminUnavailability"> | string
+    endTime?: StringFilter<"AdminUnavailability"> | string
     createdAt?: DateTimeFilter<"AdminUnavailability"> | Date | string
     updatedAt?: DateTimeFilter<"AdminUnavailability"> | Date | string
   }
@@ -3925,6 +3951,8 @@ export namespace Prisma {
     id?: SortOrder
     startDate?: SortOrder
     endDate?: SortOrder
+    startTime?: SortOrder
+    endTime?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -3936,6 +3964,8 @@ export namespace Prisma {
     NOT?: AdminUnavailabilityWhereInput | AdminUnavailabilityWhereInput[]
     startDate?: DateTimeFilter<"AdminUnavailability"> | Date | string
     endDate?: DateTimeFilter<"AdminUnavailability"> | Date | string
+    startTime?: StringFilter<"AdminUnavailability"> | string
+    endTime?: StringFilter<"AdminUnavailability"> | string
     createdAt?: DateTimeFilter<"AdminUnavailability"> | Date | string
     updatedAt?: DateTimeFilter<"AdminUnavailability"> | Date | string
   }, "id">
@@ -3944,6 +3974,8 @@ export namespace Prisma {
     id?: SortOrder
     startDate?: SortOrder
     endDate?: SortOrder
+    startTime?: SortOrder
+    endTime?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: AdminUnavailabilityCountOrderByAggregateInput
@@ -3958,6 +3990,8 @@ export namespace Prisma {
     id?: StringWithAggregatesFilter<"AdminUnavailability"> | string
     startDate?: DateTimeWithAggregatesFilter<"AdminUnavailability"> | Date | string
     endDate?: DateTimeWithAggregatesFilter<"AdminUnavailability"> | Date | string
+    startTime?: StringWithAggregatesFilter<"AdminUnavailability"> | string
+    endTime?: StringWithAggregatesFilter<"AdminUnavailability"> | string
     createdAt?: DateTimeWithAggregatesFilter<"AdminUnavailability"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"AdminUnavailability"> | Date | string
   }
@@ -4108,6 +4142,8 @@ export namespace Prisma {
     id?: string
     startDate: Date | string
     endDate: Date | string
+    startTime: string
+    endTime: string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -4116,6 +4152,8 @@ export namespace Prisma {
     id?: string
     startDate: Date | string
     endDate: Date | string
+    startTime: string
+    endTime: string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -4123,6 +4161,8 @@ export namespace Prisma {
   export type AdminUnavailabilityUpdateInput = {
     startDate?: DateTimeFieldUpdateOperationsInput | Date | string
     endDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    startTime?: StringFieldUpdateOperationsInput | string
+    endTime?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -4130,6 +4170,8 @@ export namespace Prisma {
   export type AdminUnavailabilityUncheckedUpdateInput = {
     startDate?: DateTimeFieldUpdateOperationsInput | Date | string
     endDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    startTime?: StringFieldUpdateOperationsInput | string
+    endTime?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -4138,6 +4180,8 @@ export namespace Prisma {
     id?: string
     startDate: Date | string
     endDate: Date | string
+    startTime: string
+    endTime: string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -4145,6 +4189,8 @@ export namespace Prisma {
   export type AdminUnavailabilityUpdateManyMutationInput = {
     startDate?: DateTimeFieldUpdateOperationsInput | Date | string
     endDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    startTime?: StringFieldUpdateOperationsInput | string
+    endTime?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -4152,6 +4198,8 @@ export namespace Prisma {
   export type AdminUnavailabilityUncheckedUpdateManyInput = {
     startDate?: DateTimeFieldUpdateOperationsInput | Date | string
     endDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    startTime?: StringFieldUpdateOperationsInput | string
+    endTime?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -4355,6 +4403,8 @@ export namespace Prisma {
     id?: SortOrder
     startDate?: SortOrder
     endDate?: SortOrder
+    startTime?: SortOrder
+    endTime?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -4363,6 +4413,8 @@ export namespace Prisma {
     id?: SortOrder
     startDate?: SortOrder
     endDate?: SortOrder
+    startTime?: SortOrder
+    endTime?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -4371,6 +4423,8 @@ export namespace Prisma {
     id?: SortOrder
     startDate?: SortOrder
     endDate?: SortOrder
+    startTime?: SortOrder
+    endTime?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }

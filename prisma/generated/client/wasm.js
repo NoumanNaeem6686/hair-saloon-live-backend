@@ -128,6 +128,8 @@ exports.Prisma.AdminUnavailabilityScalarFieldEnum = {
   id: 'id',
   startDate: 'startDate',
   endDate: 'endDate',
+  startTime: 'startTime',
+  endTime: 'endTime',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
