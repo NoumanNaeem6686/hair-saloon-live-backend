@@ -22,7 +22,6 @@ app.use(cors(corsOptions));
 
 app.use(cookieParser());
 
-// Basic test route
 app.get("/", (req, res) => {
   res.send("Hello from server");
 });
