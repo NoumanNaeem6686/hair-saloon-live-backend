@@ -11,17 +11,14 @@ const app = express();
 app.use(express.json());
 
 // Set allowed origins for CORS
-const allowedOrigins = [
-  "http://localhost:5500",
-  "https://hair-saloon-user-frontend.vercel.app/",
-];
+const corsOptions = {
+  origin: "*",
+  "Access-Controll-Allow-Origin": "*",
+  credentials: true,
+  optionSuccessStatus: 200,
+};
 
-app.use(
-  cors({
-    origin: allowedOrigins,
-    credentials: true,
-  })
-);
+app.use(cors(corsOptions));
 
 app.use(cookieParser());
 
