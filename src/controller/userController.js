@@ -6,52 +6,117 @@ const nodemailer = require("nodemailer");
 
 const bookAppointment = async (req, res) => {
   try {
+    // Destructure values from the request body
     const { name, email, contactNo, bookingDate, bookingTime, message } =
       req.body;
 
-    // Convert bookingDate and bookingTime to a DateTime object
-    const bookingDateTime = new Date(`${bookingDate}T${bookingTime}`);
-
-    // Check if the requested booking falls within any unavailable slot
-    const overlappingUnavailability = await prisma.adminUnavailability.findMany(
-      {
-        where: {
-          OR: [
-            {
-              startDate: { lte: bookingDateTime },
-              endDate: { gte: bookingDateTime },
-            },
-          ],
-        },
-      }
-    );
-
-    if (overlappingUnavailability.length > 0) {
-      return res
-        .status(400)
-        .json({ message: "The selected slot is unavailable for booking." });
+    // Validate input data (optional but recommended)
+    if (!name || !email || !contactNo || !bookingDate || !bookingTime) {
+      return res.status(400).json({ message: "All fields are required." });
     }
 
-    // Create appointment if the slot is available
-    const parsedBookingDate = new Date(bookingDate).toISOString();
+    // Parse booking date and time (ensure date is valid)
+    const parsedBookingDate = new Date(bookingDate);
+    if (isNaN(parsedBookingDate.getTime())) {
+      return res.status(400).json({ message: "Invalid booking date." });
+    }
+
+    // Create a new appointment using Prisma
     const appointment = await prisma.appointment.create({
       data: {
         name,
         email,
         contactNo,
-        bookingDate: parsedBookingDate,
+        bookingDate: parsedBookingDate.toISOString(),
         bookingTime,
         message,
       },
     });
 
+    // Send success response
     res
       .status(200)
       .json({ message: "Appointment booked successfully", appointment });
   } catch (error) {
+    // Handle errors
     res.status(500).json({ message: error.message });
   }
 };
+
+// const bookAppointment = async (req, res) => {
+
+//   try {
+//     const { name, email, contactNo, bookingDate, bookingTime, message } =
+//       req.body;
+
+//     // Validate input
+//     if (!bookingDate || !bookingTime) {
+//       return res.status(400).json({ message: "Invalid booking date or time." });
+//     }
+
+//     // Convert booking time to 24-hour format if necessary
+//     function convertTo24HourFormat(time) {
+//       let [hours, minutes] = time.split(/[: ]/);
+//       const meridian = time.split(" ")[1];
+
+//       if (meridian === "PM" && hours !== "12") {
+//         hours = parseInt(hours, 10) + 12;
+//       } else if (meridian === "AM" && hours === "12") {
+//         hours = "00";
+//       }
+
+//       return `${hours}:${minutes}`;
+//     }
+
+//     const bookingTime24Hour = convertTo24HourFormat(bookingTime);
+//     const bookingDateTime = new Date(`${bookingDate}T${bookingTime24Hour}`);
+
+//     if (isNaN(bookingDateTime.getTime())) {
+//       return res
+//         .status(400)
+//         .json({ message: "Invalid booking date or time format." });
+//     }
+
+//     // Check if the requested booking falls within any unavailable slot
+//     const overlappingUnavailability = await prisma.adminUnavailability.findMany(
+//       {
+//         where: {
+//           OR: [
+//             {
+//               startDate: { lte: bookingDateTime },
+//               endDate: { gte: bookingDateTime },
+//             },
+//           ],
+//         },
+//       }
+//     );
+
+//     if (overlappingUnavailability.length > 0) {
+//       return res
+//         .status(400)
+//         .json({ message: "The selected slot is unavailable for booking." });
+//     }
+
+//     // Create appointment if the slot is available
+//     const parsedBookingDate = new Date(bookingDate).toISOString();
+//     const appointment = await prisma.appointment.create({
+//       data: {
+//         name,
+//         email,
+//         contactNo,
+//         bookingDate: parsedBookingDate,
+//         bookingTime,
+//         message,
+//       },
+//     });
+
+//     res
+//       .status(200)
+//       .json({ message: "Appointment booked successfully", appointment });
+//   } catch (error) {
+//     res.status(500).json({ message: error.message });
+//   }
+// };
 
 const getAllAppointments = async (req, res) => {
   try {
