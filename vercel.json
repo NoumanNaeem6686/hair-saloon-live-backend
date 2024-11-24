@@ -9,10 +9,10 @@
   "routes": [
     {
       "src": "/(.*)",
-      "dest": "server.js"
+      "dest": "/server.js"
     }
   ],
-  "functions": {
+  "overrides": {
     "server.js": {
       "maxDuration": 30
     }
