@@ -14,7 +14,7 @@ app.use(express.json());
 const corsOptions = {
   origin: ["http://localhost:3000", "https://hair-saloon-dashboard.vercel.app"], // Add your live frontend URL
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
-  credentials: true, // Allow credentials (cookies, authorization headers, etc.)
+  // credentials: true, // Allow credentials (cookies, authorization headers, etc.)
   allowedHeaders: ["Content-Type", "Authorization"], // Add other headers as needed
 };
 
