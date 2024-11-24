@@ -12,12 +12,16 @@ app.use(express.json());
 
 // Set allowed origins for CORS
 const corsOptions = {
-  origin: "*", // Allow all origins
-  methods: "GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS", // Allow all methods
-  allowedHeaders: ["Content-Type", "Authorization"], // Allow all headers
+  origin: ["http://localhost:3000", "https://hair-saloon-dashboard.vercel.app"], // Frontend origins
+  methods: "GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS", // Allowed methods
+  credentials: true, // Allow cookies/authorization headers
+  allowedHeaders: ["Content-Type", "Authorization"], // Allowed headers
 };
 
+// Apply CORS middleware
 app.use(cors(corsOptions));
+
+// Handle preflight requests
 app.options("*", cors(corsOptions));
 
 app.use(cookieParser());
