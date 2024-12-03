@@ -11,18 +11,10 @@ const app = express();
 app.use(express.json());
 
 // Set allowed origins for CORS
-const corsOptions = {
-  origin: "*", // Allow all origins
-  methods: "GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS",
-  credentials: true, // Allow cookies to be included if necessary
-  allowedHeaders: ["Content-Type", "Authorization"],
-};
-
-// Apply CORS middleware
-app.use(cors(corsOptions));
+app.use(cors({ origin: "*", credentials: true }));
 
 // Handle preflight requests
-app.options("*", cors(corsOptions));
+// app.options("*", cors(corsOptions));
 
 app.use(cookieParser());
 
